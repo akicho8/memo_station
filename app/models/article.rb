@@ -40,7 +40,7 @@ class Article < ActiveRecord::Base
 
   # acts_as_taggable の不具合で Foo と foo が混在する場合があるため
   def normalized_tag_list
-    ActsAsTaggableOn::TagListParser.parse(tag_list.uniq(&:downcase).sort)
+    SoftParser.new(tag_list.uniq(&:downcase).sort).parse
   end
 
   concerning :EmacsSupport do
@@ -127,7 +127,7 @@ class Article < ActiveRecord::Base
             e[:title] = string_normalize(md[:title])
           end
           if md = str.match(/^Tag:(?<tag_list>.+)$/i)
-            e[:tag_list] = ActsAsTaggableOn::TagListParser.parse(string_normalize(md[:tag_list]))
+            e[:tag_list] = SoftParser.new(string_normalize(md[:tag_list])).parse
           end
           if md = str.match(/^#{text_separator}\n(?<body>.*)\z/mi)
             e[:body] = md[:body].strip

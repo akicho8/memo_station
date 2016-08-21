@@ -14,14 +14,14 @@ RSpec.describe ArticlesController, type: :controller do
     end
 
     it "検索" do
-      get :index, :query => @article.tag_list, :format => "txt"
+      get :index, params: {:query => @article.tag_list, :format => "txt"}
       assert_response :success
       assert_match /#{@article.id}.*#{@article.title}.*#{@article.tag_list}.*#{@article.body}/m, response.body
     end
   end
 
   it "show" do
-    get :show, :id => @article.id
+    get :show, params: {:id => @article.id}
     assert_response :success
   end
 
@@ -31,32 +31,32 @@ RSpec.describe ArticlesController, type: :controller do
   end
 
   it "create" do
-    post :create, :article => {:title => hex, :tag_list => hex, :body => hex}
+    process :create, :method => :post, :params => {:article => {:title => hex, :tag_list => hex, :body => hex}}
     assert_response :redirect
   end
 
   it "edit" do
-    get :edit, :id => @article.id
+    get :edit, params: {:id => @article.id}
     assert_response :success
   end
 
   it "update" do
-    put :update, :id => @article.id, :article => {:title => hex, :tag_list => hex, :body => hex}
+    process :update, :method => :put, :params => {:id => @article.id, :article => {:title => hex, :tag_list => hex, :body => hex}}
     assert_response :redirect
   end
 
   it "destroy" do
-    delete :destroy, :id => @article.id
+    process :destroy, :method => :delete, :params => {:id => @article.id}
     assert_response :redirect
   end
 
   it "test_post" do
-    post :text_post, :content => "
+    process :text_post, :method => :post, :params => {:content => "
 Title: #{hex}
 Tag: #{hex}
 --text follows this line--
 #{hex}
-"
+"}
     assert_response :success
   end
 end
