@@ -16,7 +16,7 @@ class ArticlesController < ApplicationController
       format.html
       format.json { render :json => @articles.to_json(:methods => :tag_list) }
       format.xml  { render :xml => @articles.to_xml(:methods => :tag_list, :dasherize => false) }
-      format.txt  { render :text => Article.separated_text_format(@articles) }
+      format.txt  { render :plain => Article.separated_text_format(@articles) }
     end
   end
 
@@ -25,7 +25,7 @@ class ArticlesController < ApplicationController
       format.html
       format.json { render :json => @article.to_json(:methods => :tag_list) }
       format.xml  { render :xml => @article.to_xml(:methods => :tag_list, :dasherize => false) }
-      format.txt  { render :text => Article.separated_text_format([@article]) }
+      format.txt  { render :plain => Article.separated_text_format([@article]) }
     end
   end
 
@@ -37,7 +37,7 @@ class ArticlesController < ApplicationController
   end
 
   def text_post
-    render :text => Article.text_post(params[:content])
+    render plain: Article.text_post(params[:content])
   end
 
   def create
