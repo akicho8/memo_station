@@ -19,4 +19,6 @@ html{lang="ja"}
     = yield
     footer
       = "Powered by Rails #{Rails.version} and Ruby #{RUBY_VERSION}"
+      br
+      = "#{Rails.env}"
     = javascript_include_tag(:application)
