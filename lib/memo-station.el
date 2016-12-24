@@ -1,6 +1,6 @@
 ;;; memo-station.el --- メモを集中管理する
 
-;; Copyright (C) 2002-2015 Free Software Foundation, Inc.
+;; Copyright (C) 2002-2016 Free Software Foundation, Inc.
 
 ;; Author: akicho8 <akicho8@gmail.com>
 ;; Keywords: program text
@@ -373,7 +373,7 @@
         (progn (switch-to-buffer "*検索結果*"))
       (setq tag (or tag
                     (read-string "メモ検索: ")))
-      (request (concat memo-station-url "articles.txt?query=" (url-hexify-string tag))
+      (request (concat memo-station-url "articles.text?query=" (url-hexify-string tag))
                :sync t
                :parser 'buffer-string
                :complete (function*

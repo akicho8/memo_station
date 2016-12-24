@@ -14,7 +14,7 @@ RSpec.describe ArticlesController, type: :controller do
     end
 
     it "検索" do
-      get :index, params: {:query => @article.tag_list, :format => "txt"}
+      get :index, params: {:query => @article.tag_list, :format => "text"}
       assert_response :success
       assert_match /#{@article.id}.*#{@article.title}.*#{@article.tag_list}.*#{@article.body}/m, response.body
     end
