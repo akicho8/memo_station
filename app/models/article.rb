@@ -1,4 +1,4 @@
-class Article < ActiveRecord::Base
+class Article < ApplicationRecord
   acts_as_taggable
 
   default_scope { order(arel_table[:updated_at].desc) }
