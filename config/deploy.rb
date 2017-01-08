@@ -31,3 +31,7 @@ set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp/pids', 'tmp/ca
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
+
+# set :bundle_path, nil
+set :bundle_flags, '--deployment'
+
