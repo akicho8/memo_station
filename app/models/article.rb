@@ -12,9 +12,14 @@ class Article < ApplicationRecord
     if changes.has_key?(:title)
       self.title = string_normalize(title)
     end
+
+    # ブラウザで編集した記事をEmacsで見ると ^M が出てくるため統一する
+    # Emacs    -> \n
+    # ブラウザ -> \r\n
     if changes.has_key?(:body)
-      self.body = body.to_s.strip.presence
+      self.body = body.to_s.gsub(/\R/, "\n").strip.presence
     end
+
     true
   end
 
