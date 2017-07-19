@@ -56,7 +56,7 @@ group :development, :test do
   gem 'capistrano-rbenv',     require: false
   gem 'capistrano-withrsync', require: false
   gem 'net-ssh', '>= 4.0.0',  require: false
-  
+
   gem 'rspec-rails'
   gem 'test-unit'
 
