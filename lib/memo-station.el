@@ -391,9 +391,9 @@
   (font-lock-add-keywords
    nil
    '(
-     ("\\<\\(Title\\|Id\\|Tag\\|Date\\):" 1 font-lock-keyword-face t)
-     ("^\\(-+\\)$" 1 font-lock-comment-face t)
-     ("\\(--text follows this line--\\)" 1 font-lock-keyword-face t)
+     ;; ("\\<\\(Title\\|Id\\|Tag\\|Date\\):" 1 font-lock-keyword-face t)
+     ;; ("^\\(-+\\)$" 1 font-lock-comment-face t)
+     ;; ("\\(--text follows this line--\\)" 1 font-lock-keyword-face t)
      )))
 
 (provide 'memo-station)
