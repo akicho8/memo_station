@@ -1,7 +1,7 @@
 class Article < ApplicationRecord
   acts_as_taggable
 
-  default_scope { order(:updated_at => :desc) }
+  default_scope { order(updated_at: :desc) }
 
   before_validation on: :create do
     self.tag_list = normalized_tag_list
@@ -107,7 +107,7 @@ class Article < ApplicationRecord
           mark << "E"
           errors = article.errors.full_messages.join(" ")
         end
-        {:mark => mark, :errors => errors}
+        {mark: mark, errors: errors}
       end
 
       def text_resolve?(str)
