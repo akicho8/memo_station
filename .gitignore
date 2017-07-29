@@ -1,3 +1,5 @@
 *.sql
 *.bin
 *.sqlite*
+/public/packs*
+/node_modules
