@@ -150,7 +150,11 @@ class Article < ApplicationRecord
       str << "Id: #{id}"
       str << "Title: #{title}"
       str << "Tag: #{tag_list}"
-      str << "Date: #{created_at.to_s(:ymdhm)}"
+      if created_at == updated_at
+        str << "CreatedAt: #{created_at.to_s(:ymdhm)}"
+      else
+        str << "UpdatedAt: #{updated_at.to_s(:ymdhm)}"
+      end
       str << text_separator
       str << body.to_s
       str.join("\n") + "\n"
