@@ -32,6 +32,7 @@
 ;;; Code:
 
 (require 'request)
+(require 'org)
 
 (defgroup memo-station nil
   "*メモステモード"
@@ -98,10 +99,11 @@
     (define-key map "!" 'memo-station-copy-and-exit-execute-minibuffer)
     (setq memo-station-mode-map map)))
 
+;; (setq memo-station-edit-mode-map nil)
 (defvar memo-station-edit-mode-map nil
   "メモステ表示参照モードでのキーマップ")
 (unless memo-station-edit-mode-map
-  (let ((map (copy-keymap text-mode-map)))
+  (let ((map (copy-keymap org-mode-map)))
     (define-key map "\C-c\C-c" 'memo-station-edit-save-buffer)
     (substitute-key-definition 'save-buffer 'memo-station-edit-save-buffer map global-map)
     (setq memo-station-edit-mode-map map)))
