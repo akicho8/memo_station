@@ -207,7 +207,8 @@
   (interactive)
   (let* ((range (memo-station-current-body-range))
          (start (car range))
-         (end (cdr range)))
+         (end (cdr range))
+         url)
     (save-excursion
       (save-restriction
         (narrow-to-region start end)
