@@ -208,7 +208,7 @@
   (let* ((range (memo-station-current-body-range))
          (start (car range))
          (end (cdr range))
-         url)
+         url point)
     (save-excursion
       (save-restriction
         (narrow-to-region start end)
@@ -216,8 +216,12 @@
           (setq url (thing-at-point 'url))
           (when url
             (beginning-of-line)
+            (setq point (point))
             (message "open %s" url)
-            (browse-url url)))))))
+            (browse-url url)))))
+    ;; 飛べたときに限りその行に移動しておく
+    (when point
+      (goto-char point))))
 
 (defun memo-station-current-body-get ()
   "カレントのデータを取得"
