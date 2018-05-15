@@ -1,6 +1,6 @@
 ;;; memo-station.el --- メモを集中管理する
 
-;; Copyright (C) 2002-2016 Free Software Foundation, Inc.
+;; Copyright (C) 2002-2018 Free Software Foundation, Inc.
 
 ;; Author: akicho8 <akicho8@gmail.com>
 ;; Keywords: program text
@@ -89,6 +89,7 @@
     (define-key map "t" 'memo-station-goto-segment)
     (define-key map "w" 'memo-station-copy-to-kill-ring)
     (define-key map "e" 'memo-station-edit-mode)
+    (define-key map "f" 'memo-station-jump)
     (define-key map "<" 'memo-station-goto-first)
     (define-key map ">" 'memo-station-goto-last)
     (define-key map "d" 'memo-station-delete-push)
@@ -155,6 +156,15 @@
       (beginning-of-line)
       (recenter 0))))
 
+(defun memo-station-next-silent ()
+  "次のデータに移動(recenterしない)"
+  (interactive)
+  (when (memo-station-next-exist?)
+    (forward-line)
+    (when (search-forward-regexp memo-station-separator-regexp nil t)
+      (beginning-of-line)
+      )))
+
 (defun memo-station-next-exist? ()
   "次のデータが存在するか調べる"
   (interactive)
@@ -170,6 +180,13 @@
     (recenter 0)
     ))
 
+(defun memo-station-previous-silent ()
+  "前のデータに移動(recenterしない)"
+  (interactive)
+  (when (search-backward-regexp memo-station-separator-regexp nil t)
+    ;; (forward-line)
+    ))
+
 (defun memo-station-exit ()
   "メモステ終了"
   (interactive)
@@ -180,28 +197,57 @@
 (defun memo-station-copy-to-kill-ring ()
   "カレントのデータをキルリングにコピー"
   (interactive)
-  (let ((data (memo-station-http-get-data)))
+  (let ((data (memo-station-current-body-get)))
     (kill-new data)
     (message "copy %d chars" (length data))
     data))
 
-(defun memo-station-http-get-data ()
+(defun memo-station-jump ()
+  "本文にあるURLを開く"
+  (interactive)
+  (let* ((range (memo-station-current-body-range))
+         (start (car range))
+         (end (cdr range)))
+    (narrow-to-region start end)
+    (search-forward "ttp")
+    (setq url (thing-at-point 'url))
+    (when url
+      (beginning-of-line)
+      (message "open %s" url)
+      (browse-url url))
+    (widen)))
+
+(defun memo-station-current-body-get ()
   "カレントのデータを取得"
   (interactive)
-  (let (start end)
-    (memo-station-goto-segment)
-    (search-forward "--text follows this line--\n")
-    (setq start (point))
-    (memo-station-next)
-    (setq end (1- (point)))             ;-1は最後の改行を取るため
-    (memo-station-previous)
+  (let* ((range (memo-station-current-body-range))
+         (start (car range))
+         (end (cdr range)))
     (buffer-substring-no-properties start end)))
+
+(defun memo-station-current-body-range ()
+  "カレントのデータの範囲を (start . end) 形式で返す"
+  (interactive)
+  (let (start end)
+    (save-excursion
+      (memo-station-goto-segment-silent)
+      (search-forward "--text follows this line--\n")
+      (setq start (point))
+      (memo-station-next-silent)
+      (setq end (1- (point)))           ; -1は最後の改行を取るため
+      (cons start end))))
 
 (defun memo-station-goto-segment ()
   "カレントデータの先頭にカーソルを移動"
   (interactive)
   (if (not (looking-at memo-station-separator-regexp))
       (memo-station-previous)))
+
+(defun memo-station-goto-segment-silent ()
+  "カレントデータの先頭にカーソルを移動(recenterしない)"
+  (interactive)
+  (if (not (looking-at memo-station-separator-regexp))
+      (memo-station-previous-silent)))
 
 (defun memo-station-goto-first ()
   "先頭のデータにジャンプ"
