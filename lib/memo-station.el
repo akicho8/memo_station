@@ -208,14 +208,15 @@
   (let* ((range (memo-station-current-body-range))
          (start (car range))
          (end (cdr range)))
-    (narrow-to-region start end)
-    (search-forward "ttp")
-    (setq url (thing-at-point 'url))
-    (when url
-      (beginning-of-line)
-      (message "open %s" url)
-      (browse-url url))
-    (widen)))
+    (save-excursion
+      (save-restriction
+        (narrow-to-region start end)
+        (when (search-forward "ttp" nil t)
+          (setq url (thing-at-point 'url))
+          (when url
+            (beginning-of-line)
+            (message "open %s" url)
+            (browse-url url)))))))
 
 (defun memo-station-current-body-get ()
   "カレントのデータを取得"
