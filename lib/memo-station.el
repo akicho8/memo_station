@@ -32,6 +32,7 @@
 ;;; Code:
 
 (require 'request)
+(require 's)
 (require 'org)
 
 (defgroup memo-station nil
@@ -371,6 +372,7 @@
   (interactive)
   ;; script/runner では遅すぎる
   ;; (shell-command-on-region (point-min) (point-max) "~/src/memo-station/script/runner 'Article.text_post(STDIN.read).display'" nil)
+  (message "save...")
   (request
    (concat memo-station-url "articles/text_post")
    :type "POST"
@@ -378,9 +380,11 @@
    :parser 'buffer-string
    :success (function*
              (lambda (&key data &allow-other-keys)
-               (memo-station-mode)
+               (memo-station-mode)      ; なぜか色が消える
                (memo-station-goto-segment)
-               (message "%s" (decode-coding-string data 'utf-8))))))
+               (message "%s" (s-trim (decode-coding-string data 'utf-8)))
+               ;; (font-lock-flush) ;; ← これでも復活しない
+               ))))
 
 (defun memo-station-edit-mode ()
   "\\{memo-station-edit-mode-map}"
