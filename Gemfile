@@ -72,5 +72,5 @@ group :development, :test do
 end
 
 gem 'slim-rails'
-gem 'acts-as-taggable-on' # , :git => 'https://github.com/mbleigh/acts-as-taggable-on'
+gem 'acts-as-taggable-on', github: "mbleigh/acts-as-taggable-on"
 gem 'rails_autolink'
