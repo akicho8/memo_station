@@ -2,7 +2,7 @@
 
 * MemoStation
 
-  Emacs synchronized memo management application
+  Emacs synchronized memo management rails application.
 
 ** Setup
 
@@ -12,13 +12,13 @@ rails s
 open http://localhost:3000/
 #+END_SRC
 
-** deploymentt
+** Deployment
 
 #+BEGIN_SRC shell
 cap production deploy
 #+END_SRC
 
-** Emacs interface setting
+** Emacs Interface
 
 Make memo_station.el readable
 
@@ -33,14 +33,14 @@ M-x package-install request
 M-x package-install s
 #+END_EXAMPLE
 
-Install curl as well
+Install =curl= as well
 
 #+BEGIN_SRC shell
 brew install curl
 brew link curl
 #+END_SRC
 
-~/.emacs.d/init.el add to
+Add the following in your =.emacs= file: (example)
 
 #+BEGIN_SRC elisp
 (require 'memo-station)
