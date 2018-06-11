@@ -1,41 +1,51 @@
-#+OPTIONS: toc:nil num:nil author:nil creator:nil \n:nil |:t
-#+OPTIONS: @:t ::t ^:t -:t f:t *:t <:t
+#+html: <a href="https://travis-ci.org/akicho8/shogi_web"><img src="https://travis-ci.org/akicho8/shogi_web.svg?branch=master" /></a>
 
-* Emacs連動メモ管理アプリ
+* MemoStation
 
-  - [[https://travis-ci.org/akicho8/memo_station][Travis]]: [[https://travis-ci.org/akicho8/memo_station.png]]
-  - [[https://gemnasium.com/akicho8/memo_station/][Gemnasium]]: [[https://gemnasium.com/akicho8/memo_station.png]]
-  - [[https://codeclimate.com/github/akicho8/memo_station][Code Climate]]: [[https://codeclimate.com/github/akicho8/memo_station.png]]
+  Emacs synchronized memo management application
 
-** セットアップ
+** Setup
 
-   : setup
-   : rails s
-   : open http://localhost:3000/
+#+BEGIN_SRC shell
+setup
+rails s
+open http://localhost:3000/
+#+END_SRC
 
-** デプロイ
+** deploymentt
 
-   : cap production deploy
+#+BEGIN_SRC shell
+cap production deploy
+#+END_SRC
 
-** Emacsインタフェースの設定(例)
+** Emacs interface setting
 
-   memo_station.el を読めるようにする
+Make memo_station.el readable
 
-   : ln -s ~/src/memo_station/lib/memo_station.el ~/.emacs.d/lib
+#+BEGIN_SRC shell
+ln -s ~/src/memo_station/lib/memo_station.el ~/.emacs.d/lib
+#+END_SRC
 
-   [[https://github.com/tkf/emacs-request][request.el]] が入っていなけれインストール
+[[https://github.com/tkf/emacs-request][request.el]] and [[https://github.com/magnars/s.el][s.el]] installation not installed.
 
-   : M-x package-list-packages
+#+BEGIN_EXAMPLE
+M-x package-install request
+M-x package-install s
+#+END_EXAMPLE
 
-   curl もインストール
+Install curl as well
 
-   : brew install curl
-   : brew link curl
+#+BEGIN_SRC shell
+brew install curl
+brew link curl
+#+END_SRC
 
-   ~/.emacs.d/init.el に以下を設定
+~/.emacs.d/init.el add to
 
-   : (require 'memo-station)
-   : (setq memo-station-url "http://memo/")
-   : (global-unset-key "\C-j")
-   : (global-set-key (kbd "C-j w") 'memo-station-create)
-   : (global-set-key (kbd "C-j s") 'memo-station-search)
+#+BEGIN_SRC elisp
+(require 'memo-station)
+(setq memo-station-url "http://memo/")
+(global-unset-key "\C-j")
+(global-set-key (kbd "C-j w") 'memo-station-create)
+(global-set-key (kbd "C-j s") 'memo-station-search)
+#+END_SRC
