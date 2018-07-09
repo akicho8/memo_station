@@ -91,6 +91,7 @@
     (define-key map "w" 'memo-station-copy-to-kill-ring)
     (define-key map "e" 'memo-station-edit-mode)
     (define-key map "f" 'memo-station-jump)
+    (define-key map "g" 'memo-station-jump)
     (define-key map "<" 'memo-station-goto-first)
     (define-key map ">" 'memo-station-goto-last)
     (define-key map "d" 'memo-station-delete-push)
