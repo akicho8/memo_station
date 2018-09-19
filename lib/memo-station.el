@@ -397,6 +397,7 @@
   (use-local-map memo-station-edit-mode-map)
   (setq buffer-read-only nil)
   (set (make-local-variable 'truncate-lines) t)
+  (setq tab-width 2)
   (run-hooks 'memo-station-edit-mode-hook))
 
 (defun memo-station-get-region-str ()
