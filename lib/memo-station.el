@@ -432,6 +432,7 @@
     (if (get-buffer "*検索結果*")
         (progn (switch-to-buffer "*検索結果*"))
       (setq tag (or tag
+                    (memo-station-get-region-str)
                     (read-string "メモ検索: ")))
       (request (concat memo-station-url "articles.text?query=" (url-hexify-string tag))
                :sync t
