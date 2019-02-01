@@ -1,3 +1,5 @@
+ruby '2.5.1'
+
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -72,5 +74,3 @@ end
 gem 'slim-rails'
 gem 'acts-as-taggable-on', github: "mbleigh/acts-as-taggable-on"
 gem 'rails_autolink'
-
-gem 'rake', "12.3.2"
