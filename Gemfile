@@ -72,3 +72,5 @@ end
 gem 'slim-rails'
 gem 'acts-as-taggable-on', github: "mbleigh/acts-as-taggable-on"
 gem 'rails_autolink'
+
+gem 'rake', "12.3.2"
