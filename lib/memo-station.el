@@ -33,7 +33,6 @@
 
 (require 'request)
 (require 's)
-(require 'org)
 
 (defgroup memo-station nil
   "*メモステモード"
@@ -106,7 +105,7 @@
 (defvar memo-station-edit-mode-map nil
   "メモステ表示参照モードでのキーマップ")
 (unless memo-station-edit-mode-map
-  (let ((map (copy-keymap org-mode-map))) ; orgを継承するとテーブルが使えるようになるので便利
+  (let ((map (copy-keymap text-mode-map)))
     (define-key map "\C-c\C-c" 'memo-station-edit-save-buffer)
     (substitute-key-definition 'save-buffer 'memo-station-edit-save-buffer map global-map)
     (setq memo-station-edit-mode-map map)))
@@ -395,7 +394,6 @@
   (setq mode-name "メモステ編集モード")
   (memo-station-font-lock)
   (use-local-map memo-station-edit-mode-map)
-  (setq org-complex-heading-regexp "") ; org-complex-heading-regexp を設定する。しないと改行でエラーになる
   (setq buffer-read-only nil)
   (set (make-local-variable 'truncate-lines) t)
   (setq tab-width 2)
