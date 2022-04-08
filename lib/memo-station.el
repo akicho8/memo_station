@@ -397,6 +397,7 @@
   (setq buffer-read-only nil)
   (set (make-local-variable 'truncate-lines) t)
   (setq tab-width 2)
+  (orgtbl-mode)
   (run-hooks 'memo-station-edit-mode-hook))
 
 (defun memo-station-get-region-str ()
