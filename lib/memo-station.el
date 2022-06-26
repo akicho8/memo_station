@@ -1,6 +1,6 @@
 ;;; memo-station.el --- メモを集中管理する
 
-;; Copyright (C) 2002-2019 Free Software Foundation, Inc.
+;; Copyright (C) 2002-2022 Free Software Foundation, Inc.
 
 ;; Author: akicho8 <akicho8@gmail.com>
 ;; Keywords: program text
@@ -89,7 +89,7 @@
     (define-key map "t" 'memo-station-goto-segment)
     (define-key map "w" 'memo-station-copy-to-kill-ring)
     (define-key map "e" 'memo-station-edit-mode)
-    (define-key map "f" 'memo-station-jump)
+    (define-key map "f" 'memo-station-find-file)
     (define-key map "g" 'memo-station-jump)
     (define-key map "<" 'memo-station-goto-first)
     (define-key map ">" 'memo-station-goto-last)
@@ -202,6 +202,11 @@
     (kill-new data)
     (message "copy %d chars" (length data))
     data))
+
+(defun memo-station-find-file ()
+  "本文にファイルパスだけが書かれてあると見なしてそのファイルを開く"
+  (interactive)
+  (find-file (memo-station-current-body-get)))
 
 (defun memo-station-jump ()
   "本文にあるURLを開く"
