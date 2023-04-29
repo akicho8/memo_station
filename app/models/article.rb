@@ -150,9 +150,9 @@ class Article < ApplicationRecord
       str << "Id: #{id}"
       str << "Title: #{title}"
       str << "Tag: #{tag_list}"
-      str << "CreatedAt: #{created_at.to_s(:ymdhm)}"
+      str << "CreatedAt: #{created_at.to_fs(:ymdhm)}"
       if created_at != updated_at
-        str << "UpdatedAt: #{updated_at.to_s(:ymdhm)}"
+        str << "UpdatedAt: #{updated_at.to_fs(:ymdhm)}"
       end
       str << text_separator
       str << body.to_s
