@@ -256,6 +256,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rbenv
   listen (~> 3.3)
+  net-ssh (>= 4.0.0)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 7.0.4, >= 7.0.4.3)

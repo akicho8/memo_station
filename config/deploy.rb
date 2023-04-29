@@ -33,7 +33,7 @@ set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp/pids', 'tmp/ca
 set :default_env, -> {
   {
     "DISABLE_DATABASE_ENVIRONMENT_CHECK" => "1",
-    "rails_env"                          => fetch(:rails_env),
+    "RAILS_ENV"                          => fetch(:rails_env),
     "PASSENGER_INSTANCE_REGISTRY_DIR"    => "/var/run/passenger-instreg",
   }
 }

@@ -71,6 +71,7 @@ group :development, :test do
 
   gem "rspec-rails"
   gem "test-unit"
+  gem 'net-ssh', '>= 4.0.0'
 end
 
 gem "slim-rails"
