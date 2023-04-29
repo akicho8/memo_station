@@ -67,6 +67,7 @@ group :development, :test do
   gem "capistrano-passenger"
   gem "capistrano-rbenv"
   # gem "capistrano-withrsync"
+  # gem 'net-ssh', '>= 4.0.0'
 
   gem "rspec-rails"
   gem "test-unit"
