@@ -1,3 +1,4 @@
-AppConfig = {
-  :app_name => "MemoStation",
-}
+AppConfig.update({
+    :app_name => "MemoStation",
+  })
+

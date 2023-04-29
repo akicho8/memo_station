@@ -1,3 +1,5 @@
+require_relative "../../app/models/soft_parser"
+
 # ActsAsTaggableOn.setup do |config|
 #   config.delimiter = " "
 # end
