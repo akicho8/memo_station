@@ -34,7 +34,7 @@ set :default_env, -> {
   {
     "DISABLE_DATABASE_ENVIRONMENT_CHECK" => "1",
     "RAILS_ENV"                          => fetch(:rails_env),
-    "PASSENGER_INSTANCE_REGISTRY_DIR"    => "/var/run/passenger-instreg",
+    # "PASSENGER_INSTANCE_REGISTRY_DIR"    => "/var/run/passenger-instreg",
   }
 }
 
@@ -43,3 +43,15 @@ set :default_env, -> {
 
 # set :bundle_path, nil
 set :bundle_flags, '--deployment'
+
+
+# namespace :deploy do
+#   desc 'Restart application'
+#   task :restart do
+#     on roles(:app) do
+#       execute "passenger-config", "restart-app #{fetch(:deploy_to)} --ignore-app-not-running"
+#     end
+#     # system "passenger-config restart-app #{fetch(:deploy_to)} --ignore-app-not-running"
+#   end
+# end
+

@@ -15,3 +15,5 @@ role :db,  %w{deploy@localhost}
 # used to set extended properties on the server.
 
 server 'localhost', user: 'deploy', roles: %w{web app}, my_property: :my_value
+
+set :rails_env, "production"
