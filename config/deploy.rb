@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.17.3'
+lock '3.19.2'
 
 set :application, "memo_station"
 set :repo_url, "file://#{Pathname(__dir__).dirname}"
@@ -23,10 +23,21 @@ set :git_shallow_clone, 1
 # set :pty, true
 
 # Default value for :linked_files is []
-# set :linked_files, fetch(:linked_files, []).push('config/database.yml')
+# append :linked_files, "config/database.yml", "config/secrets.yml"
+append :linked_files, "config/master.key"
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "vendor/bundle", "public/system"
+
+namespace :deploy do
+  # cap production deploy:master_key_upload
+  desc "master.key をアップロード"
+  before "check:linked_files", :master_key_upload do
+    on roles(:all) do
+      upload! "config/master.key", shared_path.join("config")
+    end
+  end
+end
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -39,19 +50,40 @@ set :default_env, -> {
 }
 
 # Default value for keep_releases is 5
-# set :keep_releases, 5
+set :keep_releases, 1
 
-# set :bundle_path, nil
-set :bundle_flags, '--deployment'
+# Bundler
+set :bundle_config, { deployment: true }
+set :bundle_flags, "" # --quiet を外して動作状況を確認する
 
+# cap production passenger:restart
+namespace :passenger do
+  desc "Passenger の再起動"
+  task :restart do
+    if false
+      # 本当は次のようにするべきだのだが Permission denied - connect(2) for /tmp/passenger.bmcU99g/agents.s/core_api (Errno::EACCES) のエラーになってしまう
+      # 01 /opt/rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/passenger-6.0.26/src/ruby_supportlib/phusion_passenger/admin_tools/instance.rb:94:in 'UNIXSocket#initialize': Permission denied - connect(2) for /tmp/passenger.bmcU99g/agents.s/core_api (Errno::EACCES)
+      on roles(:app) do
+        execute "passenger-config", "restart-app #{fetch(:deploy_to)} --ignore-app-not-running"
+      end
+    else
+      # 単に自分ユーザーで再起動させる
+      system "brew services restart httpd"
+      if false
+        sleep 1
+        system "curl --silent -I http://memo/ | grep HTTP"
+      else
+        system "open http://memo/"
+      end
+    end
+  end
+end
 
-# namespace :deploy do
-#   desc 'Restart application'
-#   task :restart do
-#     on roles(:app) do
-#       execute "passenger-config", "restart-app #{fetch(:deploy_to)} --ignore-app-not-running"
-#     end
-#     # system "passenger-config restart-app #{fetch(:deploy_to)} --ignore-app-not-running"
-#   end
-# end
-
+# cap production deploy:restart
+namespace :deploy do
+  desc "再起動"
+  task :restart do
+    invoke("passenger:restart")
+  end
+  after :publishing, "deploy:restart"
+end

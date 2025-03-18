@@ -402,6 +402,7 @@
   (setq buffer-read-only nil)
   (set (make-local-variable 'truncate-lines) t)
   (setq tab-width 2)
+  (modify-syntax-entry ?\n ">") ; M-h で改行まで消さないようにする
   (orgtbl-mode)
   (run-hooks 'memo-station-edit-mode-hook))
 

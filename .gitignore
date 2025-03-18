@@ -3,3 +3,5 @@
 *.sqlite*
 /public/packs*
 /node_modules
+
+/config/master.key
