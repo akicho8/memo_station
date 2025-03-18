@@ -39,7 +39,6 @@ end
 
 group :development, :test do
   gem "rspec-rails"
-  gem "test-unit"
 end
 
 gem "slim-rails"

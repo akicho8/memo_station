@@ -7,14 +7,10 @@ RSpec.describe Article, type: :model do
 
   context "作成できる" do
     it "作成できる" do
-      assert_nothing_raised do
-        article_create
-      end
+      assert article_create
     end
     it "タイトルのみで作成できる" do
-      assert_nothing_raised do
-        Article.create!(:title => hex, :tag_list => hex)
-      end
+      assert Article.create!(:title => hex, :tag_list => hex)
     end
   end
 
