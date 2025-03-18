@@ -1,5 +1,3 @@
-#+html: <a href="https://travis-ci.org/akicho8/shogi_web"><img src="https://travis-ci.org/akicho8/shogi_web.svg?branch=master" /></a>
-
 * MemoStation
 
   Emacs synchronized memo management rails application.
@@ -8,7 +6,6 @@
 
 #+BEGIN_SRC shell
 setup
-rails s
 open http://localhost:3000/
 #+END_SRC
 
@@ -20,10 +17,8 @@ cap production deploy
 
 ** Emacs Interface
 
-Make memo_station.el readable
-
 #+BEGIN_SRC shell
-ln -s ~/src/memo_station/lib/memo_station.el ~/.emacs.d/lib
+(load "~/src/memo_station/lib/memo-station.el")
 #+END_SRC
 
 [[https://github.com/tkf/emacs-request][request.el]] and [[https://github.com/magnars/s.el][s.el]] installation not installed.
@@ -32,13 +27,6 @@ ln -s ~/src/memo_station/lib/memo_station.el ~/.emacs.d/lib
 M-x package-install request
 M-x package-install s
 #+END_EXAMPLE
-
-Install =curl= as well
-
-#+BEGIN_SRC shell
-brew install curl
-brew link curl
-#+END_SRC
 
 Add the following in your =.emacs= file: (example)
 
