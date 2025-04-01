@@ -68,7 +68,12 @@ namespace :passenger do
       end
     else
       # 単に自分ユーザーで再起動させる
-      system "brew services restart httpd"
+      if false
+        # 正しく再起動されない
+        system "brew services restart httpd"
+      else
+        system "apachectl restart"
+      end
       if false
         sleep 1
         system "curl --silent -I http://memo/ | grep HTTP"
