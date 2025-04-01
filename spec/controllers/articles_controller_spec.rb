@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-require 'rails_helper'
+
+require "rails_helper"
 
 RSpec.describe ArticlesController, type: :controller do
   before do

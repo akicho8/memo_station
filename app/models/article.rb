@@ -5,7 +5,6 @@ class Article < ApplicationRecord
 
   before_validation on: :create do
     self.tag_list = normalized_tag_list
-    true
   end
 
   before_validation do
@@ -19,16 +18,14 @@ class Article < ApplicationRecord
     if changes.has_key?(:body)
       self.body = body.to_s.gsub(/\R/, "\n").strip.presence
     end
-
-    true
   end
 
-  with_options(presence: true) do
+  with_options presence: true do
     validates :title
     validates :tag_list
   end
 
-  with_options(allow_blank: true) do
+  with_options allow_blank: true do
     validates :title, uniqueness: true
   end
 
@@ -115,7 +112,7 @@ class Article < ApplicationRecord
       end
 
       def text_to_array(text)
-        text.split(/^-{80,}$/).find_all {|e| text_resolve?(e) }
+        text.split(/^-{80,}$/).find_all { |e| text_resolve?(e) }
       end
 
       def separator

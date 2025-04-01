@@ -1,12 +1,12 @@
 # config valid only for current version of Capistrano
-lock '3.19.2'
+lock "3.19.2"
 
 set :application, "memo_station"
 set :repo_url, "file://#{Pathname(__dir__).dirname}"
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
-set :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+set :branch, `git rev-parse --abbrev-ref HEAD`.strip
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, proc { "/var/www/#{fetch(:application)}_#{fetch(:stage)}" }
@@ -62,7 +62,7 @@ namespace :passenger do
   task :restart do
     if false
       # 本当は次のようにするべきだのだが Permission denied - connect(2) for /tmp/passenger.bmcU99g/agents.s/core_api (Errno::EACCES) のエラーになってしまう
-      # 01 /opt/rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/passenger-6.0.26/src/ruby_supportlib/phusion_passenger/admin_tools/instance.rb:94:in 'UNIXSocket#initialize': Permission denied - connect(2) for /tmp/passenger.bmcU99g/agents.s/core_api (Errno::EACCES)
+      # 01 /opt/rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/passenger-6.0.26/src/ruby_supportlib/phusion_passenger/admin_tools/instance.rb:94:in "UNIXSocket#initialize": Permission denied - connect(2) for /tmp/passenger.bmcU99g/agents.s/core_api (Errno::EACCES)
       on roles(:app) do
         execute "passenger-config", "restart-app #{fetch(:deploy_to)} --ignore-app-not-running"
       end
