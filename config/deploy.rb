@@ -68,9 +68,9 @@ namespace :passenger do
       end
     else
       # 単に自分ユーザーで再起動させる
-      if false
-        # 正しく再起動されない
+      if true
         system "brew services restart httpd"
+        system "brew services list | grep httpd"
       else
         system "apachectl restart"
       end
