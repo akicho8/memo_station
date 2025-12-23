@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock "3.19.2"
+lock "3.20.0"
 
 set :application, "memo_station"
 set :repo_url, "file://#{Pathname(__dir__).dirname}"
