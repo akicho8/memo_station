@@ -69,5 +69,3 @@ end
 gem "slim-rails"
 gem "acts-as-taggable-on"
 gem "rails_autolink"
-
-gem "tailwindcss-rails", "~> 4.4"
